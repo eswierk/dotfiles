@@ -98,6 +98,20 @@
 (add-hook 'auto-save-hook (lambda () (desktop-save desktop-dirname t)))
 
 ;;;;
+;;;; indentation goodies
+;;;;
+
+(setq-default indent-tabs-mode nil)
+
+(require 'guess-style "~/.emacs.d/guess-style.el")
+(autoload 'guess-style-set-variable "guess-style" nil t)
+(autoload 'guess-style-guess-variable "guess-style")
+(autoload 'guess-style-guess-all "guess-style" nil t)
+(add-hook 'c-mode-common-hook 'guess-style-guess-all)
+(add-hook 'python-mode-common-hook 'guess-style-guess-all)
+;(global-guess-style-info-mode 1)
+
+;;;;
 ;;;; other goodies
 ;;;;
 
@@ -109,6 +123,9 @@
 (delete-other-windows)
 (split-window-horizontally)
 
+(setq split-height-threshold nil)
+(setq split-width-threshold nil)
+
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
@@ -118,6 +135,3 @@
 (add-to-list 'default-frame-alist '(cursor-color . "coral"))
 
 (setq Man-notify-method 'pushy)
-
-(setq split-height-threshold nil)
-(setq split-width-threshold nil)
