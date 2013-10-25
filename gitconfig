@@ -1,0 +1,9 @@
+[user]
+	email = eswierk@cs.stanford.edu
+	name = Ed Swierk
+[core]
+	pager = cat
+[man]
+	viewer = catman
+[man "catman"]
+	cmd = man -P cat
