@@ -135,3 +135,5 @@
 (add-to-list 'default-frame-alist '(cursor-color . "coral"))
 
 (setq Man-notify-method 'pushy)
+
+(column-number-mode)
