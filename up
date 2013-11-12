@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while read f; do
+    [ "$f" ] || continue
+    cp -v ~/.$f $f
+done <Manifest

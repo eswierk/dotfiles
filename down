@@ -1,0 +1,7 @@
+#!/bin/bash
+
+while read f; do
+    [ "$f" ] || continue
+    mkdir -p ~/.$(dirname $f)
+    cp -v $f ~/.$f
+done <Manifest
