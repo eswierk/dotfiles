@@ -1,3 +1,5 @@
+# On Mac, ln -s .bash_aliases ~/.bash_profile
+
 if [ "${OSTYPE#darwin}" != "${OSTYPE}" ]; then
     export PATH=/Applications/Emacs.app/Contents/MacOS/bin:${PATH}
 fi
