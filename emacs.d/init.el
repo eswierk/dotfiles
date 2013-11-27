@@ -13,6 +13,10 @@
             (define-key (current-local-map) (kbd "M-n")
               'comint-next-matching-input-from-input)))
 
+(setq comint-buffer-maximum-size 100000)
+(add-hook 'comint-output-filter-functions
+          'comint-truncate-buffer)
+
 (global-set-key (kbd "C-x f") 'find-file-at-point)
 
 ;; bind F1-F4 to separate numbered shell buffers
