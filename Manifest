@@ -1,6 +1,6 @@
 gitconfig
 screenrc
-emacs.d/guess-style.el
+emacs.d/dtrt-indent.el
 emacs.d/init.el
 vnc/xstartup
 bash_aliases

@@ -107,13 +107,8 @@
 
 (setq-default indent-tabs-mode nil)
 
-(require 'guess-style "~/.emacs.d/guess-style.el")
-(autoload 'guess-style-set-variable "guess-style" nil t)
-(autoload 'guess-style-guess-variable "guess-style")
-(autoload 'guess-style-guess-all "guess-style" nil t)
-(add-hook 'c-mode-common-hook 'guess-style-guess-all)
-(add-hook 'python-mode-common-hook 'guess-style-guess-all)
-;(global-guess-style-info-mode 1)
+(require 'dtrt-indent "~/.emacs.d/dtrt-indent.el")
+(dtrt-indent-mode 1)
 
 ;;;;
 ;;;; other goodies
