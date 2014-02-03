@@ -13,4 +13,4 @@ else
 fi
 
 alias v="source ~/.ssh/setscreenenv"
-alias screen='echo -e "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nDISPLAY=${DISPLAY}" >~/.ssh/setscreenenv; \screen'
+alias screen='echo -e "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nexport DISPLAY=${DISPLAY}" >~/.ssh/setscreenenv; \screen'
