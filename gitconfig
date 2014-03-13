@@ -1,5 +1,5 @@
 [user]
-	email = eswierk@cs.stanford.edu
+	email = eswierk@skyportsystems.com
 	name = Ed Swierk
 [core]
 	pager = cat
@@ -7,3 +7,8 @@
 	viewer = catman
 [man "catman"]
 	cmd = man -P cat
+[sendemail]
+	smtpencryption = tls
+	smtpserver = smtp.gmail.com
+	smtpuser = eswierk@skyportsystems.com
+	smtpserverport = 587
