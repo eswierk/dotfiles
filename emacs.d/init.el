@@ -111,6 +111,13 @@
 (dtrt-indent-mode 1)
 
 ;;;;
+;;;; python goodies
+;;;;
+
+(add-to-list 'interpreter-mode-alist '("python2" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python3" . python-mode))
+
+;;;;
 ;;;; other goodies
 ;;;;
 
