@@ -12,3 +12,5 @@
 	smtpserver = smtp.gmail.com
 	smtpuser = eswierk@skyportsystems.com
 	smtpserverport = 587
+[push]
+	default = simple
