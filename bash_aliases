@@ -6,6 +6,8 @@ fi
 
 if [ "${INSIDE_EMACS}" ]; then
     export EDITOR=emacsclient
+    export COLUMNS=150
+    export PAGER=cat
 elif which zile >/dev/null; then
     export EDITOR=zile
 else
