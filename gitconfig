@@ -14,3 +14,5 @@
 	smtpserverport = 587
 [push]
 	default = simple
+[alias]
+	wdiff = diff --color-words
