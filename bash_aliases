@@ -14,5 +14,6 @@ else
     export EDITOR=nano
 fi
 
+alias m="sshfs -o reconnect dogcow: /mnt/hgfs/eswierk"
 alias v="source ~/.ssh/setscreenenv"
 alias screen='echo -e "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nexport DISPLAY=${DISPLAY}" >~/.ssh/setscreenenv; \screen'
