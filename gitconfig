@@ -16,3 +16,7 @@
 	default = simple
 [alias]
 	wdiff = diff --color-words
+[diff]
+	algorithm = histogram
+[i18n]
+	logOutputEncoding = utf-8
