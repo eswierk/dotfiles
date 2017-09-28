@@ -42,18 +42,9 @@
 ;;;; buffer goodies
 ;;;;
 
-(require 'iswitchb)
+(require 'ido)
 
-;; when switching buffers with C-xb, bind C-p and C-n to cycle thru
-;; buffers matching the characters entered so far
-(add-hook 'iswitchb-define-mode-map-hook
-	  (lambda ()
-	    (define-key iswitchb-mode-map (kbd "C-p")
-	      'iswitchb-prev-match)
-	    (define-key iswitchb-mode-map (kbd "C-n")
-	      'iswitchb-next-match)))
-
-(iswitchb-mode t)
+(ido-mode t)
 
 (require 'uniquify)
 
