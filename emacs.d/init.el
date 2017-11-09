@@ -109,6 +109,17 @@
 (add-to-list 'interpreter-mode-alist '("python3" . python-mode))
 
 ;;;;
+;;;; mail goodies
+;;;;
+
+(require 'smtpmail)
+(setq send-mail-function 'smtpmail-send-it)
+(setq user-full-name "Ed Swierk")
+(setq user-mail-address "eswierk@skyportsystems.com")
+(setq smtpmail-smtp-server "smtp.gmail.com")
+(setq smtpmail-smtp-service 587)
+
+;;;;
 ;;;; other goodies
 ;;;;
 
@@ -130,5 +141,7 @@
 (add-to-list 'default-frame-alist '(cursor-color . "coral"))
 
 (setq Man-notify-method 'pushy)
+
+(setq woman-fill-frame t)
 
 (column-number-mode)
