@@ -1,0 +1,14 @@
+#!/usr/bin/python3
+#
+# a2l: Convert addresses to function names in a kernel stack trace
+#
+
+import re, subprocess, sys
+
+r = re.compile(r"(?<=\[<)[0-9a-f]+(?=>\])")
+
+def repl(m):
+    return subprocess.check_output(["addr2line", "-f", "-p", "-i", "-e", "vmlinux", "-s", "0x" + m.group(0)]).decode().strip()
+
+for l in sys.stdin.readlines():
+    print(r.sub(repl, l.rstrip("\n")))
