@@ -1,5 +1,5 @@
 [user]
-	email = eswierk@skyportsystems.com
+	email = eswierk@gmail.com
 	name = Ed Swierk
 [core]
 	pager = cat
@@ -10,7 +10,7 @@
 [sendemail]
 	smtpencryption = tls
 	smtpserver = smtp.gmail.com
-	smtpuser = eswierk@skyportsystems.com
+	smtpuser = eswierk@gmail.com
 	smtpserverport = 587
 [push]
 	default = simple
