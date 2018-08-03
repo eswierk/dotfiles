@@ -1,5 +1,5 @@
 [user]
-	email = eswierk@gmail.com
+	email = eswierk@gh.st
 	name = Ed Swierk
 [core]
 	pager = cat
@@ -20,3 +20,5 @@
 	algorithm = histogram
 [i18n]
 	logOutputEncoding = utf-8
+[color]
+	ui = auto
