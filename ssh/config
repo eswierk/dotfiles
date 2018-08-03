@@ -1,0 +1,5 @@
+# Avoid 'channel 2: open failed: administratively prohibited: cannot
+# open additional channels' when doing multiple git fetches from
+# bitbucket in parallel
+Host bitbucket.org
+     ControlMaster yes

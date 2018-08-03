@@ -5,3 +5,4 @@ emacs.d/init.el
 vnc/xstartup
 bash_aliases
 bin/ka2l
+ssh/config
