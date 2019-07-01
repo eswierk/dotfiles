@@ -1,4 +1,11 @@
 ;;;;
+;;;; package.el
+;;;;
+
+;; must come before configuring installed packages
+(package-initialize)
+
+;;;;
 ;;;; shell goodies
 ;;;;
 
@@ -55,6 +62,37 @@
 (define-key global-map [f4] (lambda () (interactive) (myshell ?4)))
 
 (setq explicit-bash-args '("--login" "-i")) ; for Mac
+
+;;;;
+;;;; tramp goodies
+;;;;
+
+(defun comint-ssh-file-name-prefix (output)
+  "Set up filename completion via tramp in ssh shells.
+
+Looks for shell commands like 'ssh -p port user@host' and sets
+`comint-file-name-prefix' to '/ssh:user@host#port:'
+
+Should be added to `comint-input-filter-functions' like so:
+
+  (add-hook 'comint-input-filter-functions
+            'comint-ssh-file-name-prefix)
+  "
+
+  (if (string-match ".*\\bssh\\b\\( +-p *\\(\\S-+\\)\\)? +\\(\\(\\(\\S-+\\)@\\)?\\(\\S-+\\)\\)" output)
+      (let ((port (match-string 2 output))
+	    (user-host (match-string 3 output)))
+	(setq comint-file-name-prefix 
+	      (concat "/ssh:" 
+		      user-host
+		      (if port (concat "#" port) "")
+		      ":"))
+	)))
+
+(add-hook 'comint-input-filter-functions
+	  'comint-ssh-file-name-prefix)
+
+(setq tramp-use-ssh-controlmaster-options nil)
 
 ;;;;
 ;;;; buffer goodies
@@ -133,8 +171,8 @@
 (require 'smtpmail)
 (setq send-mail-function 'smtpmail-send-it)
 (setq user-full-name "Ed Swierk")
-(setq user-mail-address "eswierk@skyportsystems.com")
-(setq smtpmail-smtp-server "smtp.gmail.com")
+(setq user-mail-address "eswierk@gh.st")
+(setq smtpmail-smtp-server "smtp.office365.com")
 (setq smtpmail-smtp-service 587)
 
 ;;;;
@@ -154,6 +192,8 @@
 
 (menu-bar-mode 0)
 
+(tool-bar-mode 0)
+
 (add-to-list 'default-frame-alist '(foreground-color . "white"))
 (add-to-list 'default-frame-alist '(background-color . "black"))
 (add-to-list 'default-frame-alist '(cursor-color . "coral"))
@@ -163,3 +203,7 @@
 (setq woman-fill-frame t)
 
 (column-number-mode)
+
+; Display line number rather than ?? even when buffer contains long
+; lines
+(setq line-number-display-limit-width 10000)
