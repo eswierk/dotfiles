@@ -155,6 +155,7 @@ Should be added to `comint-input-filter-functions' like so:
 (setq-default indent-tabs-mode nil)
 
 (require 'dtrt-indent "~/.emacs.d/dtrt-indent.el")
+(require 'dtrt-indent "~/.emacs.d/dtrt-indent-diag.el")
 (dtrt-indent-mode 1)
 
 ;;;;
