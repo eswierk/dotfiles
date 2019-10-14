@@ -1,3 +1,5 @@
+Include private.config
+
 Host *
      ControlMaster auto
      ControlPath /tmp/%u-ssh-master-%r@%h:%p
@@ -10,5 +12,3 @@ Host *
 # bitbucket in parallel
 Host bitbucket.org
      ControlMaster yes
-
-Include private.config
