@@ -7,3 +7,4 @@ vnc/xstartup
 bash_aliases
 bin/ka2l
 ssh/config
+curlrc
