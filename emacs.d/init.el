@@ -156,7 +156,7 @@ Should be added to `comint-input-filter-functions' like so:
 
 (require 'dtrt-indent "~/.emacs.d/dtrt-indent.el")
 (require 'dtrt-indent "~/.emacs.d/dtrt-indent-diag.el")
-(dtrt-indent-mode 1)
+(dtrt-indent-global-mode 1)
 
 ;;;;
 ;;;; python goodies
