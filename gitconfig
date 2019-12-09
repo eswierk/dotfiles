@@ -22,3 +22,5 @@
 	logOutputEncoding = utf-8
 [color]
 	ui = auto
+[http "https://*.qti.qualcomm.com/"]
+	followRedirects = true
