@@ -24,3 +24,5 @@
 	ui = auto
 [http "https://*.qti.qualcomm.com/"]
 	followRedirects = true
+[stash]
+	showPatch = true
