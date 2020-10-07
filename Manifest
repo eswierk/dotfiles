@@ -1,5 +1,6 @@
 gitconfig
 screenrc
+emacs.d/lustre.el
 emacs.d/dtrt-indent.el
 emacs.d/dtrt-indent-diag.el
 emacs.d/init.el
