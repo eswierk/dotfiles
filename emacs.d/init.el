@@ -11,23 +11,7 @@
 
 (require 'shell)
 
-;; restore old history behavior where point moves to the end of the line,
-;; broken by https://github.com/emacs-mirror/emacs/commit/e82134b1e4,
-;; fixed in 26.0 by https://github.com/emacs-mirror/emacs/commit/afe2997119
-(defun comint-previous-matching-input-from-input (n)
-  (interactive "p")
-  (if (not (memq last-command '(comint-previous-matching-input-from-input
-                                comint-next-matching-input-from-input)))
-      ;; Starting a new search
-      (setq comint-matching-input-from-input-string
-	    (buffer-substring
-	     (or (marker-position comint-accum-marker)
-		 (process-mark (get-buffer-process (current-buffer))))
-	     (point))
-	    comint-input-ring-index nil))
-  (comint-previous-matching-input
-   (concat "^" (regexp-quote comint-matching-input-from-input-string))
-   n))
+(setq comint-move-point-for-matching-input 'end-of-line)
 
 ;; bind M-p and M-n to cycle only thru history items that complete
 ;; the characters entered so far
@@ -62,6 +46,11 @@
 (define-key global-map [f4] (lambda () (interactive) (myshell ?4)))
 
 (setq explicit-bash-args '("--login" "-i")) ; for Mac
+
+;; speed up shell output
+(setq comint-scroll-show-maximum-output nil)
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq bidi-inhibit-bpa t)
 
 ;;;;
 ;;;; tramp goodies
