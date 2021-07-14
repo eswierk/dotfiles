@@ -81,6 +81,13 @@ Should be added to `comint-input-filter-functions' like so:
 (add-hook 'comint-input-filter-functions
 	  'comint-ssh-file-name-prefix)
 
+(defun comint-ssh-file-name-prefix-clear (output)
+  (if (string-match "onnection to \\S-+ closed" output)
+      (setq comint-file-name-prefix "")))
+
+(add-hook 'comint-output-filter-functions
+          'comint-ssh-file-name-prefix-clear)
+
 (setq tramp-use-ssh-controlmaster-options nil)
 
 ;;;;
