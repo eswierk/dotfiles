@@ -12,3 +12,7 @@ Host *
 # bitbucket in parallel
 Host bitbucket.org
      ControlMaster yes
+
+Host ssh.dev.azure.com
+     HostkeyAlgorithms +ssh-rsa
+     PubkeyAcceptedAlgorithms +ssh-rsa
