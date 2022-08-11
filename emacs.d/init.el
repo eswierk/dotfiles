@@ -173,9 +173,9 @@ Should be added to `comint-input-filter-functions' like so:
 
 (require 'smtpmail)
 (setq send-mail-function 'smtpmail-send-it)
-(setq user-full-name "Ed Swierk")
-(setq user-mail-address "eswierk@gh.st")
-(setq smtpmail-smtp-server "smtp.office365.com")
+(setq user-full-name "Edward Swierk")
+(setq user-mail-address "eswierk@gmail.com")
+(setq smtpmail-smtp-server "smtp.gmail.com")
 (setq smtpmail-smtp-service 587)
 
 ;;;;
