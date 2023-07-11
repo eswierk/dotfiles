@@ -1,5 +1,5 @@
 [user]
-	email = edward.swierk@cariad.us
+	email = eswierk@gmail.com
 	name = Edward Swierk
 [core]
 	pager = cat
@@ -22,8 +22,6 @@
 	logOutputEncoding = utf-8
 [color]
 	ui = auto
-[http "https://*.qti.qualcomm.com/"]
-	followRedirects = true
 [stash]
 	showPatch = true
 [filter "lfs"]
@@ -33,3 +31,5 @@
 	clean = git-lfs clean -- %f
 [credential]
 	helper = store
+[include]
+	path = .gitconfig.private
