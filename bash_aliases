@@ -1,7 +1,6 @@
 # On Mac, ln -s .bash_aliases ~/.bash_profile
 
 export PATH=${HOME}/.bin:${PATH}
-export PATH=${HOME}/Library/Android/sdk/platform-tools:${PATH}
 
 if [ "${OSTYPE#darwin}" != "${OSTYPE}" ]; then
     export PATH=/Applications/Emacs.app/Contents/MacOS/bin:${PATH}
@@ -18,8 +17,6 @@ elif which zile >/dev/null; then
 else
     export EDITOR=nano
 fi
-
-export BASH_SILENCE_DEPRECATION_WARNING=1
 
 alias m="fusermount -u /mnt/hgfs/eswierk; sshfs -o idmap=user -o reconnect -o follow_symlinks kristof.local: /mnt/hgfs/eswierk"
 alias v="source ~/.ssh/setscreenenv"

@@ -1,4 +1,4 @@
-Include private.config
+Include config.private
 
 Host *
      ControlMaster auto

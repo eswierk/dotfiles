@@ -155,12 +155,6 @@ Should be added to `comint-input-filter-functions' like so:
 (dtrt-indent-global-mode 1)
 
 ;;;;
-;;;; lustre goodies
-;;;;
-
-(require 'lustre "~/.emacs.d/lustre.el")
-
-;;;;
 ;;;; python goodies
 ;;;;
 
