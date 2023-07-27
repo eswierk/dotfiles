@@ -6,4 +6,6 @@ then
   compinit
 fi
 
+[[ $TERM == "dumb" ]] && unsetopt zle
+
 source ~/.bash_aliases
