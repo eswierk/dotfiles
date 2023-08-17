@@ -154,6 +154,9 @@ Should be added to `comint-input-filter-functions' like so:
 (require 'dtrt-indent "~/.emacs.d/dtrt-indent-diag.el")
 (dtrt-indent-global-mode 1)
 
+(add-hook 'c-mode-hook '(lambda () (c-set-style "linux")))
+(add-hook 'c++-mode-hook '(lambda () (c-set-style "linux")))
+
 ;;;;
 ;;;; python goodies
 ;;;;
