@@ -13,14 +13,21 @@
 
 (setq comint-move-point-for-matching-input 'end-of-line)
 
+(defun comint-pop-previous-input ()
+  (interactive)
+  (ring-remove comint-input-ring (ring-size comint-input-ring)))
+
 ;; bind M-p and M-n to cycle only thru history items that complete
-;; the characters entered so far
+;; the characters entered so far; and M-s-p to nuke the most recent
+;; item
 (add-hook 'comint-mode-hook
           (lambda ()
             (define-key (current-local-map) (kbd "M-p")
               'comint-previous-matching-input-from-input)
             (define-key (current-local-map) (kbd "M-n")
-              'comint-next-matching-input-from-input)))
+              'comint-next-matching-input-from-input)
+            (define-key (current-local-map) (kbd "M-s-p")
+              'comint-pop-previous-input)))
 
 (setq comint-buffer-maximum-size 100000)
 (add-hook 'comint-output-filter-functions
@@ -156,6 +163,8 @@ Should be added to `comint-input-filter-functions' like so:
 
 (add-hook 'c-mode-hook '(lambda () (c-set-style "linux")))
 (add-hook 'c++-mode-hook '(lambda () (c-set-style "linux")))
+
+(add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 
 ;;;;
 ;;;; python goodies
