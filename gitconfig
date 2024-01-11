@@ -33,3 +33,5 @@
 	helper = store
 [include]
 	path = .gitconfig.private
+[log]
+	decorate = short
