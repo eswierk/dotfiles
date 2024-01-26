@@ -2,6 +2,13 @@
 ;;;; package.el
 ;;;;
 
+(require 'package)
+
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+;; and `package-pinned-packages`. Most users will not need or want to do this.
+;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
 ;; must come before configuring installed packages
 (package-initialize)
 
@@ -9,6 +16,7 @@
 ;;;; shell goodies
 ;;;;
 
+(require 'vterm)
 (require 'shell)
 
 (setq comint-move-point-for-matching-input 'end-of-line)
@@ -33,6 +41,8 @@
 (add-hook 'comint-output-filter-functions
           'comint-truncate-buffer)
 
+(setq vterm-max-scrollback 100000)
+
 (global-set-key (kbd "C-x f") 'find-file-at-point)
 
 ;; bind F1-F4 to separate numbered shell buffers
@@ -44,7 +54,7 @@
     (if buffer
 	(switch-to-buffer buffer)
       (progn
-	(shell)
+	(vterm)
 	(rename-buffer (format "*shell*<%c>" arg))))))
 
 (define-key global-map [f1] (lambda () (interactive) (myshell ?1)))
@@ -52,12 +62,19 @@
 (define-key global-map [f3] (lambda () (interactive) (myshell ?3)))
 (define-key global-map [f4] (lambda () (interactive) (myshell ?4)))
 
+(define-key vterm-mode-map [f1] (lambda () (interactive) (myshell ?1)))
+(define-key vterm-mode-map [f2] (lambda () (interactive) (myshell ?2)))
+(define-key vterm-mode-map [f3] (lambda () (interactive) (myshell ?3)))
+(define-key vterm-mode-map [f4] (lambda () (interactive) (myshell ?4)))
+
 (setq explicit-bash-args '("--login" "-i")) ; for Mac
 
 ;; speed up shell output
 (setq comint-scroll-show-maximum-output nil)
 (setq-default bidi-paragraph-direction 'left-to-right)
 (setq bidi-inhibit-bpa t)
+
+(define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
 
 ;;;;
 ;;;; tramp goodies
@@ -224,7 +241,7 @@ Should be added to `comint-input-filter-functions' like so:
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(swift-mode lua-mode multiple-cursors)))
+ '(package-selected-packages '(vterm swift-mode lua-mode multiple-cursors)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
