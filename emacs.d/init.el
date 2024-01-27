@@ -76,6 +76,8 @@
 
 (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
 
+(setq vterm-enable-manipulate-selection-data-by-osc52 t)
+
 ;;;;
 ;;;; tramp goodies
 ;;;;
