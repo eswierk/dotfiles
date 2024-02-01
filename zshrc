@@ -1,4 +1,4 @@
-if [[ -f ~/dotfiles/emacs-vterm-zsh.sh ]]; then
+if [[ -f ~/dotfiles/emacs-vterm-zsh.sh ]] && [[ $TERM != "dumb" ]]; then
   source ~/dotfiles/emacs-vterm-zsh.sh
 
   _kill_line_to_clip() {
