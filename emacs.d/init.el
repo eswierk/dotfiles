@@ -179,6 +179,10 @@ Should be added to `comint-input-filter-functions' like so:
 (require 'dtrt-indent "~/.emacs.d/dtrt-indent.el")
 (require 'dtrt-indent "~/.emacs.d/dtrt-indent-diag.el")
 (dtrt-indent-global-mode 1)
+;; set tab-width to match c-basic-offset, to align improperly
+;; tab-indented lines in supposedly space-indented files
+(add-to-list 'dtrt-indent-hook-generic-mapping-list
+             '(c-buffer-is-cc-mode tab-width))
 
 (add-hook 'c-mode-hook '(lambda () (c-set-style "linux")))
 (add-hook 'c++-mode-hook '(lambda () (c-set-style "linux")))
