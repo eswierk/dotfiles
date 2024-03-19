@@ -22,6 +22,8 @@ if [[ -f ~/dotfiles/emacs-vterm-zsh.sh ]] && [[ $TERM != "dumb" ]]; then
   }
   zle -N backward-kill-word-to-clip _backward_kill_word_to_clip
   bindkey '^w' backward-kill-word-to-clip
+  bindkey "\ep" history-beginning-search-backward
+  bindkey "\en" history-beginning-search-forward
 fi
 
 if type brew &>/dev/null
