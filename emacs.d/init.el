@@ -115,6 +115,7 @@ Should be added to `comint-input-filter-functions' like so:
           'comint-ssh-file-name-prefix-clear)
 
 (setq tramp-use-ssh-controlmaster-options nil)
+(setq tramp-allow-unsafe-temporary-files t)
 
 ;;;;
 ;;;; buffer goodies
