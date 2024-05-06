@@ -189,6 +189,7 @@ Should be added to `comint-input-filter-functions' like so:
 (add-hook 'c++-mode-hook '(lambda () (c-set-style "linux")))
 
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
+(add-to-list 'auto-mode-alist '("\\.tightbeam\\'" . swift-mode))
 
 ;;;;
 ;;;; python goodies
