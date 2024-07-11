@@ -238,6 +238,8 @@ Should be added to `comint-input-filter-functions' like so:
 
 (column-number-mode)
 
+(setq hexl-bits 8)
+
 (require 'git-commit)
 
 ; Display line number rather than ?? even when buffer contains long
