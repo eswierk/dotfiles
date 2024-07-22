@@ -10,7 +10,7 @@ if [ "${INSIDE_EMACS}" ]; then
     export EDITOR=emacsclient
     export COLUMNS=150
     export PAGER=cat
-elif [ "${TERM}" = dumb ]; then
+elif [ "${TERM}" = xterm-color ]; then
     export EDITOR='/bin/bash -c "trap \"echo; exit 1\" INT; echo -n \"\$0\"; read x"'
 elif which zile >/dev/null; then
     export EDITOR=zile

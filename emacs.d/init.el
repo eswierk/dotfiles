@@ -78,6 +78,9 @@
 
 (setq vterm-enable-manipulate-selection-data-by-osc52 t)
 
+;; hint to the remote terminal that it's running inside emacs-vterm
+(setq vterm-term-environment-variable "xterm-color")
+
 ;;;;
 ;;;; tramp goodies
 ;;;;
