@@ -116,8 +116,7 @@
 
 (setq-default indent-tabs-mode nil)
 
-(require 'dtrt-indent "~/.emacs.d/dtrt-indent.el")
-(require 'dtrt-indent "~/.emacs.d/dtrt-indent-diag.el")
+(require 'dtrt-indent)
 (dtrt-indent-global-mode 1)
 ;; set tab-width to match c-basic-offset, to align improperly
 ;; tab-indented lines in supposedly space-indented files
@@ -193,7 +192,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(gnu-elpa-keyring-update magit vterm swift-mode lua-mode multiple-cursors)))
+   '(dtrt-indent gnu-elpa-keyring-update magit vterm swift-mode lua-mode multiple-cursors)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
