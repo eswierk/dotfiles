@@ -17,33 +17,8 @@
 ;;;;
 
 (require 'vterm)
-(require 'shell)
-
-(setq comint-move-point-for-matching-input 'end-of-line)
-
-(defun comint-pop-previous-input ()
-  (interactive)
-  (ring-remove comint-input-ring (ring-size comint-input-ring)))
-
-;; bind M-p and M-n to cycle only thru history items that complete
-;; the characters entered so far; and M-s-p to nuke the most recent
-;; item
-(add-hook 'comint-mode-hook
-          (lambda ()
-            (define-key (current-local-map) (kbd "M-p")
-              'comint-previous-matching-input-from-input)
-            (define-key (current-local-map) (kbd "M-n")
-              'comint-next-matching-input-from-input)
-            (define-key (current-local-map) (kbd "M-s-p")
-              'comint-pop-previous-input)))
-
-(setq comint-buffer-maximum-size 100000)
-(add-hook 'comint-output-filter-functions
-          'comint-truncate-buffer)
 
 (setq vterm-max-scrollback 100000)
-
-(global-set-key (kbd "C-x f") 'find-file-at-point)
 
 ;; bind F1-F4 to separate numbered shell buffers
 (defun myshell (arg)
@@ -67,13 +42,6 @@
 (define-key vterm-mode-map [f3] (lambda () (interactive) (myshell ?3)))
 (define-key vterm-mode-map [f4] (lambda () (interactive) (myshell ?4)))
 
-(setq explicit-bash-args '("--login" "-i")) ; for Mac
-
-;; speed up shell output
-(setq comint-scroll-show-maximum-output nil)
-(setq-default bidi-paragraph-direction 'left-to-right)
-(setq bidi-inhibit-bpa t)
-
 (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
 
 (setq vterm-enable-manipulate-selection-data-by-osc52 t)
@@ -84,38 +52,6 @@
 ;;;;
 ;;;; tramp goodies
 ;;;;
-
-(defun comint-ssh-file-name-prefix (output)
-  "Set up filename completion via tramp in ssh shells.
-
-Looks for shell commands like 'ssh -p port user@host' and sets
-`comint-file-name-prefix' to '/ssh:user@host#port:'
-
-Should be added to `comint-input-filter-functions' like so:
-
-  (add-hook 'comint-input-filter-functions
-            'comint-ssh-file-name-prefix)
-  "
-
-  (if (string-match ".*\\bssh\\b\\( +-p *\\(\\S-+\\)\\)? +\\(\\(\\(\\S-+\\)@\\)?\\(\\S-+\\)\\)" output)
-      (let ((port (match-string 2 output))
-	    (user-host (match-string 3 output)))
-	(setq comint-file-name-prefix 
-	      (concat "/ssh:" 
-		      user-host
-		      (if port (concat "#" port) "")
-		      ":"))
-	)))
-
-(add-hook 'comint-input-filter-functions
-	  'comint-ssh-file-name-prefix)
-
-(defun comint-ssh-file-name-prefix-clear (output)
-  (if (string-match "onnection to \\S-+ closed" output)
-      (setq comint-file-name-prefix "")))
-
-(add-hook 'comint-output-filter-functions
-          'comint-ssh-file-name-prefix-clear)
 
 (setq tramp-use-ssh-controlmaster-options nil)
 (setq tramp-allow-unsafe-temporary-files t)
@@ -216,6 +152,8 @@ Should be added to `comint-input-filter-functions' like so:
 ;;;; other goodies
 ;;;;
 
+(global-set-key (kbd "C-x f") 'find-file-at-point)
+
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
@@ -236,8 +174,6 @@ Should be added to `comint-input-filter-functions' like so:
 (add-to-list 'default-frame-alist '(cursor-color . "coral"))
 
 (setq Man-notify-method 'pushy)
-
-(setq woman-fill-frame t)
 
 (column-number-mode)
 
