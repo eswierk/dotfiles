@@ -92,22 +92,7 @@
 (setq desktop-restore-eager 10)
 (setq desktop-save t)
 
-(defun emacs-process-p (pid)
-  "If pid is the process ID of an emacs process, return t, else nil."
-  (when pid
-    (let* ((cmdline-file (concat "/proc/" (int-to-string pid) "/cmdline")))
-      (when (file-exists-p cmdline-file)
-        (with-temp-buffer
-          (insert-file-contents-literally cmdline-file)
-          (goto-char (point-min))
-          (when (search-forward "emacs" nil t)
-	    pid))))))
-
-(defadvice desktop-owner (after pry-from-cold-dead-hands activate)
-  "Don't allow dead emacsen to own the desktop file."
-  (when (not (emacs-process-p ad-return-value))
-    (setq ad-return-value nil)))
-
+;; auto-save the desktop whenever file buffers are auto-saved
 (add-hook 'auto-save-hook (lambda () (desktop-save desktop-dirname t)))
 
 ;;;;
