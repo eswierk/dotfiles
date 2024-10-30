@@ -114,6 +114,8 @@
 (add-to-list 'auto-mode-alist '("\\.mm\\'" . objc-mode))
 (add-to-list 'auto-mode-alist '("\\.tightbeam\\'" . swift-mode))
 
+(setq-default fill-column 100)
+
 ;;;;
 ;;;; python goodies
 ;;;;
