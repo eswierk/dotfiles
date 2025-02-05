@@ -1,5 +1,3 @@
-# On Mac, ln -s .bash_aliases ~/.bash_profile
-
 export PATH=${HOME}/.bin:${PATH}
 
 if [ "${OSTYPE#darwin}" != "${OSTYPE}" ]; then
@@ -24,4 +22,4 @@ alias screen='echo -e "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nexport DISPLAY=${D
 alias tmux='echo -e "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nexport DISPLAY=${DISPLAY}" >~/.ssh/setscreenenv; \tmux'
 alias c="echo -e \"\033[m\""
 
-gp() { perl -wnle "/$1/ and print" "$@" }
+fx() { p="*$1"; shift; find . -name "$p" -print0 | xargs -0 grep "$@" }
