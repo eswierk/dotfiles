@@ -179,7 +179,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(dtrt-indent gnu-elpa-keyring-update magit vterm swift-mode lua-mode multiple-cursors)))
+   '(dtrt-indent gnu-elpa-keyring-update lua-mode magit markdown-mode multiple-cursors swift-mode vterm)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
