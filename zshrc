@@ -38,6 +38,6 @@ fi
 
 autoload -U colors
 colors
-PS1="%{$fg[cyan]%}%m:%{$fg[yellow]%}%~ %{$reset_color%}%% "
+PROMPT="%{$fg[cyan]%}%m:%{$fg[yellow]%}%~ %{$reset_color%}%% %{\$(vterm_prompt_end)%}"
 
 source ~/.bash_aliases
