@@ -36,4 +36,8 @@ fi
 
 [[ $TERM == "dumb" ]] && unsetopt zle
 
+autoload -U colors
+colors
+PS1="%{$fg[cyan]%}%m:%{$fg[yellow]%}%~ %{$reset_color%}%% "
+
 source ~/.bash_aliases
