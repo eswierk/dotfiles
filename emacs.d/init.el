@@ -159,6 +159,8 @@
 (add-to-list 'default-frame-alist '(background-color . "black"))
 (add-to-list 'default-frame-alist '(cursor-color . "coral"))
 
+(xterm-mouse-mode 1)
+
 (setq Man-notify-method 'pushy)
 
 (column-number-mode)
