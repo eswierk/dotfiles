@@ -43,6 +43,7 @@
 (define-key vterm-mode-map [f4] (lambda () (interactive) (myshell ?4)))
 
 (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
+(define-key vterm-mode-map [down-mouse-1] #'vterm-copy-mode)
 
 (setq vterm-enable-manipulate-selection-data-by-osc52 t)
 
