@@ -45,6 +45,9 @@
 (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
 (define-key vterm-mode-map [down-mouse-1] #'vterm-copy-mode)
 
+(define-key vterm-copy-mode-map [return] #'vterm-copy-mode)
+(define-key vterm-copy-mode-map (kbd "RET") #'vterm-copy-mode)
+
 (setq vterm-enable-manipulate-selection-data-by-osc52 t)
 
 ;; hint to the remote terminal that it's running inside emacs-vterm
