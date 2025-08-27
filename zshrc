@@ -36,8 +36,10 @@ fi
 
 [[ $TERM == "dumb" ]] && unsetopt zle
 
-autoload -U colors
-colors
-PROMPT="%{$fg[cyan]%}%m:%{$fg[yellow]%}%~ %{$reset_color%}%% %{\$(vterm_prompt_end)%}"
+if [[ $TERM != "dumb" ]]; then
+  autoload -U colors
+  colors
+  PROMPT="%{$fg[cyan]%}%m:%{$fg[yellow]%}%~ %{$reset_color%}%% %{\$(vterm_prompt_end)%}"
+fi
 
 source ~/.bash_aliases
