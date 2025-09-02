@@ -21,5 +21,6 @@ alias v="source ~/.ssh/setscreenenv"
 alias screen='echo -e "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nexport DISPLAY=${DISPLAY}" >~/.ssh/setscreenenv; \screen'
 alias tmux='echo -e "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nexport DISPLAY=${DISPLAY}" >~/.ssh/setscreenenv; \tmux'
 alias c="echo -e \"\033[m\""
+alias e="${EDITOR}"
 
 fx() { p="*$1"; shift; find . -name "$p" -print0 | xargs -0 grep "$@" }
