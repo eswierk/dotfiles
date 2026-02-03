@@ -42,4 +42,8 @@ if [[ $TERM != "dumb" ]]; then
   PROMPT="%{$fg[cyan]%}%m:%{$fg[yellow]%}%~ %{$reset_color%}%% %{\$(vterm_prompt_end)%}"
 fi
 
+if [[ $SHLVL -eq 1 && -z $SSH_TTY ]]; then
+    setopt IGNORE_EOF
+fi
+
 source ~/.bash_aliases
