@@ -46,4 +46,6 @@ if [[ $SHLVL -eq 1 && -z $SSH_TTY ]]; then
     setopt IGNORE_EOF
 fi
 
+yes() { echo "No." >&2; return 1 }
+
 source ~/.bash_aliases
