@@ -140,6 +140,25 @@
 (setq smtpmail-smtp-service 587)
 
 ;;;;
+;;;; claude
+;;;;
+
+(use-package claude-code-ide
+  :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+  :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (claude-code-ide-emacs-tools-setup))
+(setq claude-code-ide-use-side-window nil)
+(define-key vterm-mode-map [return] nil t) ; https://github.com/akermu/emacs-libvterm/issues/765
+
+(defun my/vterm--write-input-substitute (orig-fn term string)
+  (funcall orig-fn term
+           (replace-regexp-in-string "⏺" "●" string)))
+
+(with-eval-after-load 'vterm
+  (advice-add 'vterm--write-input :around #'my/vterm--write-input-substitute))
+
+;;;;
 ;;;; other goodies
 ;;;;
 
