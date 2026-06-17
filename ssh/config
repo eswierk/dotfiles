@@ -8,13 +8,3 @@ Host *
      ForwardAgent yes
      IgnoreUnknown UseKeychain
      UseKeychain yes
-
-# Avoid 'channel 2: open failed: administratively prohibited: cannot
-# open additional channels' when doing multiple git fetches from
-# bitbucket in parallel
-Host bitbucket.org
-     ControlMaster yes
-
-Host ssh.dev.azure.com
-     HostkeyAlgorithms +ssh-rsa
-     PubkeyAcceptedAlgorithms +ssh-rsa
