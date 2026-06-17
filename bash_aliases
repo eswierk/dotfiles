@@ -1,4 +1,4 @@
-export PATH=${HOME}/.bin:${PATH}
+export PATH=${HOME}/.bin:${HOME}/.local/bin:${PATH}
 
 if [ "${OSTYPE#darwin}" != "${OSTYPE}" ]; then
     export PATH=/Applications/Emacs.app/Contents/MacOS/bin:${PATH}
