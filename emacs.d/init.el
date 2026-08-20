@@ -2,6 +2,17 @@
 ;;;; package.el
 ;;;;
 
+;; work around a stale Darwin-major → macOS-version mapping baked into this
+;; build's libgccjit: it computes -mmacosx-version-min from `uname -r` using
+;; a formula that predates the macOS 15->26 version jump, producing an
+;; invalid target (e.g. 18.0) and breaking native compilation of any not-yet
+;; -cached .el file. Appending the correct value (last flag wins) overrides it.
+(require 'comp)
+(when (eq system-type 'darwin)
+  (add-to-list 'native-comp-driver-options
+               (format "-mmacosx-version-min=%s" (string-trim (shell-command-to-string "sw_vers -productVersion")))
+               t))
+
 (require 'package)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -53,6 +64,9 @@
 
 ;; hint to the remote terminal that it's running inside emacs-vterm
 (setq vterm-term-environment-variable "xterm-color")
+
+;; prevent emacs libraries like libgccjit from interfering with builds in subshells
+(setq vterm-environment '("LIBRARY_PATH="))
 
 ;;;;
 ;;;; tramp goodies
@@ -146,9 +160,12 @@
 (use-package claude-code-ide
   :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
   :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
-  :config
-  (claude-code-ide-emacs-tools-setup))
+  :config (claude-code-ide-emacs-tools-setup)
+  :defer t
+  ;; VTerm and Eat are broken if claude-code-ide loads before them
+  :after vterm)
 (setq claude-code-ide-use-side-window nil)
+(setq claude-code-ide-no-flicker t) ; /tui fullscreen by default
 (define-key vterm-mode-map [return] nil t) ; https://github.com/akermu/emacs-libvterm/issues/765
 
 (defun my/vterm--write-input-substitute (orig-fn term string)
@@ -157,6 +174,22 @@
 
 (with-eval-after-load 'vterm
   (advice-add 'vterm--write-input :around #'my/vterm--write-input-substitute))
+
+;;;;
+;;;; eglot
+;;;;
+
+(use-package eglot
+  ; ...
+  :bind (:map eglot-mode-map
+	      ("C-c l a" . eglot-code-actions)
+	      ("C-c l r" . eglot-rename)
+	      ("C-c l h" . eldoc)
+	      ("C-c l f" . eglot-format)
+	      ("C-c l F" . eglot-format-buffer)
+	      ("C-c l d" . xref-find-definitions-at-mouse)
+	      ;; sometimes ionide acts up
+	      ("C-c l R" . eglot-reconnect)))
 
 ;;;;
 ;;;; other goodies
@@ -205,7 +238,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(dtrt-indent gnu-elpa-keyring-update lua-mode magit markdown-mode multiple-cursors swift-mode vterm)))
+   '(claude-code-ide dash dtrt-indent git-commit gnu-elpa-keyring-update lua-mode magit markdown-mode
+                     multiple-cursors swift-mode vterm))
+ '(package-vc-selected-packages
+   '((claude-code-ide :url "https://github.com/manzaltu/claude-code-ide.el"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
