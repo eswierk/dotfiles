@@ -3,6 +3,7 @@
 	name = Edward Swierk
 [core]
 	pager = cat
+	hooksPath = ~/.githooks
 [man]
 	viewer = catman
 [man "catman"]

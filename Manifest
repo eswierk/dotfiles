@@ -8,3 +8,4 @@ ssh/config
 curlrc
 zshrc
 profile
+githooks/pre-push

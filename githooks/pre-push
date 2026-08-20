@@ -1,0 +1,32 @@
+#!/bin/sh
+# pre-push: refuse to push (including force-push) if our recorded
+# remote-tracking ref is stale relative to the remote's actual current state.
+
+remote="$1"
+z40=0000000000000000000000000000000000000000
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+    # Skip branch deletions
+    [ "$local_sha" = "$z40" ] && continue
+
+    branch="${remote_ref#refs/heads/}"
+    tracking_ref="refs/remotes/$remote/$branch"
+    tracking_sha=$(git rev-parse -q --verify "$tracking_ref" 2>/dev/null) || continue
+
+    # If our tracking ref matches what the server just told us, we're current.
+    [ "$tracking_sha" = "$remote_sha" ] && continue
+
+    # Our knowledge is stale. Only block if this update wouldn't be a
+    # fast-forward from what we think the remote is (i.e. it needs force).
+    if ! git merge-base --is-ancestor "$tracking_sha" "$local_sha" 2>/dev/null; then
+        echo "" >&2
+        echo "pre-push: refusing to push '$local_ref' -> '$remote/$branch'." >&2
+        echo "  your $tracking_ref is at $tracking_sha" >&2
+        echo "  but $remote/$branch is actually at $remote_sha" >&2
+        echo "  run 'git fetch $remote' and check what changed before pushing." >&2
+        echo "" >&2
+        exit 1
+    fi
+done
+
+exit 0
