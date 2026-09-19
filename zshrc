@@ -1,6 +1,10 @@
-if [[ -f ~/dotfiles/emacs-vterm-zsh.sh ]] && [[ $TERM != "dumb" ]]; then
-  source ~/dotfiles/emacs-vterm-zsh.sh
+if [[ ! "${INSIDE_EMACS}" ]] && [[ "$TERM" = "xterm-ghostty" ]]; then
+  source ~/.local/share/ghostel/ghostel.zsh
+fi
 
+if [[ $TERM == "dumb" ]]; then
+  unsetopt zle
+else
   _kill_line_to_clip() {
       zle .set-mark-command
       zle .end-of-line
@@ -24,7 +28,18 @@ if [[ -f ~/dotfiles/emacs-vterm-zsh.sh ]] && [[ $TERM != "dumb" ]]; then
   bindkey '^w' backward-kill-word-to-clip
   bindkey "\ep" history-beginning-search-backward
   bindkey "\en" history-beginning-search-forward
+
+  autoload -U colors
+  colors
+
+  PROMPT="%{$fg[cyan]%}%m:%{$fg[yellow]%}%~ %{$reset_color%}%% %{%}"
 fi
+
+if [[ $SHLVL -eq 1 && -z $SSH_TTY ]]; then
+    setopt IGNORE_EOF
+fi
+
+yes() { echo "No." >&2; return 1 }
 
 if type brew &>/dev/null
 then
@@ -33,19 +48,5 @@ then
   autoload -Uz compinit
   compinit
 fi
-
-[[ $TERM == "dumb" ]] && unsetopt zle
-
-if [[ $TERM != "dumb" ]]; then
-  autoload -U colors
-  colors
-  PROMPT="%{$fg[cyan]%}%m:%{$fg[yellow]%}%~ %{$reset_color%}%% %{\$(vterm_prompt_end)%}"
-fi
-
-if [[ $SHLVL -eq 1 && -z $SSH_TTY ]]; then
-    setopt IGNORE_EOF
-fi
-
-yes() { echo "No." >&2; return 1 }
 
 source ~/.bash_aliases

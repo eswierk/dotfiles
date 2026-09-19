@@ -8,8 +8,8 @@ if [ "${INSIDE_EMACS}" ]; then
     export EDITOR=emacsclient
     export COLUMNS=150
     export PAGER=cat
-elif [ "${TERM}" = xterm-color ]; then
-    export EDITOR='/bin/sh -rc "printf \"\\e]51;Efind-file \\\"/scp:\$(hostname -s):\$0\\\"\\e\\\\\"; read x"'
+elif [ "${TERM}" = xterm-ghostty ]; then
+    export EDITOR='/bin/sh -rc "printf \"\\e]52;e;find-file \\\"/scp:\$(hostname -s):\$0\\\"\\e\\\\\"; read x"'
 elif which zile >/dev/null; then
     export EDITOR=zile
 else
