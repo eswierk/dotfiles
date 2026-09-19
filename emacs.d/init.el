@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;;;;
 ;;;; package.el
 ;;;;
@@ -27,46 +29,40 @@
 ;;;; shell goodies
 ;;;;
 
-(require 'vterm)
+(use-package ghostel
+  :init
+  ;; must be set before terminals are created
+  (setq ghostel-max-scrollback (ash 150 20) ; 150 MB ≈ ~100k lines
+        ghostel-enable-osc52 t
+        ghostel-tramp-shell-integration t
+        ;; prevent emacs libraries like libgccjit from interfering
+        ;; with builds in subshells
+        ghostel-environment '("LIBRARY_PATH="))
+  :bind (("C-x m" . ghostel))
+  :config
+  ;; F1-F4: separate numbered shell buffers (global + in semi-char mode)
+  (let ((map (make-sparse-keymap)))
+    (dotimes (i 4)
+      (let ((key (vector (intern (format "f%d" (1+ i)))))
+            (name (number-to-string (1+ i))))
+        (define-key global-map key
+          (lambda () (interactive) (my-ghostel-shell name)))
+        (define-key ghostel-semi-char-mode-map key
+          (lambda () (interactive) (my-ghostel-shell name)))))))
 
-(setq vterm-max-scrollback 100000)
+(defun my-ghostel-shell (name)
+  "Switch to or create the ghostel shell buffer named *shell*<NAME>."
+  (interactive)
+  (let* ((bufname (format "*shell*<%s>" name))
+         (buffer (get-buffer bufname)))
+    (switch-to-buffer (or buffer (ghostel-create bufname)))))
 
-;; bind F1-F4 to separate numbered shell buffers
-(defun myshell (arg)
-  (interactive "c")
-  (if (or (< arg 32) (> arg 126))
-      (error "Please use printable character for shell name"))
-  (let* ((buffer (get-buffer (format "*shell*<%c>" arg))))
-    (if buffer
-	(switch-to-buffer buffer)
-      (progn
-	(vterm)
-	(rename-buffer (format "*shell*<%c>" arg))))))
+(defun my-ghostel-set-dir (user host dir)
+  (setq default-directory
+        (format "/ssh:%s@%s:%s" user host dir)))
 
-(define-key global-map [f1] (lambda () (interactive) (myshell ?1)))
-(define-key global-map [f2] (lambda () (interactive) (myshell ?2)))
-(define-key global-map [f3] (lambda () (interactive) (myshell ?3)))
-(define-key global-map [f4] (lambda () (interactive) (myshell ?4)))
-
-(define-key vterm-mode-map [f1] (lambda () (interactive) (myshell ?1)))
-(define-key vterm-mode-map [f2] (lambda () (interactive) (myshell ?2)))
-(define-key vterm-mode-map [f3] (lambda () (interactive) (myshell ?3)))
-(define-key vterm-mode-map [f4] (lambda () (interactive) (myshell ?4)))
-
-(define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
-(define-key vterm-mode-map [mouse-1] #'vterm-copy-mode)
-(define-key vterm-mode-map [drag-mouse-1] #'vterm-copy-mode)
-
-(define-key vterm-copy-mode-map [return] #'vterm-copy-mode)
-(define-key vterm-copy-mode-map (kbd "RET") #'vterm-copy-mode)
-
-(setq vterm-enable-manipulate-selection-data-by-osc52 t)
-
-;; hint to the remote terminal that it's running inside emacs-vterm
-(setq vterm-term-environment-variable "xterm-color")
-
-;; prevent emacs libraries like libgccjit from interfering with builds in subshells
-(setq vterm-environment '("LIBRARY_PATH="))
+(add-to-list 'ghostel-eval-cmds
+             '("set-dir" my-ghostel-set-dir))
 
 ;;;;
 ;;;; tramp goodies
@@ -159,21 +155,14 @@
 
 (use-package claude-code-ide
   :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
-  :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
-  :config (claude-code-ide-emacs-tools-setup)
-  :defer t
-  ;; VTerm and Eat are broken if claude-code-ide loads before them
-  :after vterm)
-(setq claude-code-ide-use-side-window nil)
-(setq claude-code-ide-no-flicker t) ; /tui fullscreen by default
-(define-key vterm-mode-map [return] nil t) ; https://github.com/akermu/emacs-libvterm/issues/765
-
-(defun my/vterm--write-input-substitute (orig-fn term string)
-  (funcall orig-fn term
-           (replace-regexp-in-string "⏺" "●" string)))
-
-(with-eval-after-load 'vterm
-  (advice-add 'vterm--write-input :around #'my/vterm--write-input-substitute))
+  :after ghostel
+  :bind ("C-c C-'" . claude-code-ide-menu)
+  :init
+  ;; evaluated before the deferred package loads
+  (setq claude-code-ide-use-side-window nil
+        claude-code-ide-terminal-backend 'ghostel)
+  :config
+  (claude-code-ide-emacs-tools-setup))
 
 ;;;;
 ;;;; eglot
@@ -238,8 +227,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(claude-code-ide dash dtrt-indent git-commit gnu-elpa-keyring-update lua-mode magit markdown-mode
-                     multiple-cursors swift-mode vterm))
+   '(claude-code-ide dash dtrt-indent ghostel git-commit gnu-elpa-keyring-update lua-mode magit
+                     markdown-mode multiple-cursors swift-mode))
  '(package-vc-selected-packages
    '((claude-code-ide :url "https://github.com/manzaltu/claude-code-ide.el"))))
 (custom-set-faces
