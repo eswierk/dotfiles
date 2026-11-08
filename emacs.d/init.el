@@ -205,6 +205,13 @@
 (add-to-list 'default-frame-alist '(background-color . "black"))
 (add-to-list 'default-frame-alist '(cursor-color . "coral"))
 
+(let ((font "SF Mono-12:weight=medium"))
+  (add-to-list 'default-frame-alist (cons 'font font))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (when (display-graphic-p)
+                (set-frame-font font nil t)))))
+
 (xterm-mouse-mode 1)
 
 (setq Man-notify-method 'pushy)
