@@ -21,5 +21,6 @@ alias screen='echo -e "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nexport DISPLAY=${D
 alias tmux='echo -e "export SSH_AUTH_SOCK=${SSH_AUTH_SOCK}\nexport DISPLAY=${DISPLAY}" >~/.ssh/setscreenenv; \tmux'
 alias rst='echo -en "\\ec"'
 alias e="${EDITOR}"
+alias xcodebuild='env -i DEVELOPER_DIR="${DEVELOPER_DIR}" xcodebuild'
 
 fx() { p="*$1"; shift; find . -name "$p" -print0 | xargs -0 grep "$@" }
